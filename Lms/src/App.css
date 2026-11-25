@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --primary: #5b4bdb;
+    --primary-dark: #4032a8;
+
+    --background: #f2f4ff;
+
+    --card: #ffffff;
+
+    --text: #1f2937;
+
+    --muted: #6b7280;
+
+    --border: #e5e7eb;
+
+}
+
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(circle at 8% 8%, rgba(129, 140, 248, .20), transparent 28%),
+        radial-gradient(circle at 92% 18%, rgba(244, 114, 182, .14), transparent 25%),
+        linear-gradient(135deg, #f3f4ff 0%, #f7f0ff 48%, #edf7ff 100%);
+
+    color: var(--text);
+
+    transition: 0.3s;
+
+}
+
+
+button,
+input {
+
+    font-family: inherit;
+
+}
+
+
+/* =====================================================
+                        LOGIN PAGE
+===================================================== */
+
+.login-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            #c7d2fe 0%,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            #ddd6fe 0%,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f5f3ff,
+            #e0e7ff
+        );
+
+}
+
+
+.login-container {
+
+    width: 1000px;
+
+    min-height: 620px;
+
+    background: white;
+
+    border-radius: 25px;
+}
