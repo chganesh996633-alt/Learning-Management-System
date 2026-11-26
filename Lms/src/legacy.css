@@ -7,8 +7,8 @@
 
 :root {
 
-    --primary: #4f46e5;
-    --primary-dark: #3730a3;
+    --primary: #29b55a;
+    --primary-dark: #8c1d9b;
 
     --background: #f5f7fb;
 
@@ -25,9 +25,9 @@
 body {
     background: linear-gradient(
         135deg,
-        #e0f2fe,
-        #ede9fe,
-        #dbeafe
+        #035185,
+        #654cd7,
+        #0e141c
     );
     min-height: 100vh;
 }

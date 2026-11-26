@@ -64,11 +64,16 @@
 
     <!-- REGISTRATION FORM -->
     <form id="registerForm">
+<div class="form-group">
+    <label>First Name </label>
+    <input type="text" id="regFirstName"
+        placeholder="Enter your First name" required autocomplete="on">
 
+</div>
         <div class="form-group">
-            <label>Full Name</label>
+            <label>Last Name</label>
             <input type="text" id="regName"
-                placeholder="Enter your full name" required>
+                placeholder="Enter your Last name" required>
         </div>
 
         <div class="form-group">
@@ -1552,18 +1557,23 @@
         <form id="createAssignmentForm" class="assignment-upload-form">
             <label>Assignment Name</label>
             <input type="text" id="newAssignmentTitle"
-                placeholder="Enter assignment name" required>
+                placeholder="Enter assignment name" required
+                style ="width: 100%;">
 
             <label>Course Name</label>
             <input type="text" id="newAssignmentCourse"
-                placeholder="Enter course name" required>
+                placeholder="Enter course name" required
+                style ="width: 100%;">
 
             <label>Due Date</label>
-            <input type="date" id="newAssignmentDue" required>
+            <input type="date" id="newAssignmentDue" required
+            style="width: 100%;
+            height: 100%;">
 
             <label>Attach Assignment Files</label>
             <input type="file" id="teacherAssignmentFiles" multiple required>
-
+               <br>
+        
             <button type="submit" class="admin-primary-btn">
                 Upload Assignment
             </button>
