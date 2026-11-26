@@ -28,110 +28,138 @@ onReady(function () {
         document.getElementById("loginForm");
 
     // REGISTRATION
-    if (registerForm) {
+  // REGISTRATION
+if (registerForm) {
 
-        registerForm.addEventListener("submit", function (event) {
+    registerForm.addEventListener("submit", function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            const name =
-                document.getElementById("regName").value.trim();
+        const name =
+            document.getElementById("regName").value.trim();
 
-            const email =
-                document.getElementById("regEmail").value.trim().toLowerCase();
+        const email =
+            document.getElementById("regEmail").value.trim().toLowerCase();
 
-            const password =
-                document.getElementById("regPassword").value;
+        const password =
+            document.getElementById("regPassword").value;
 
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
 
-            const role =
-                document.getElementById("regRole").value;
+        const role =
+            document.getElementById("regRole").value.trim().toLowerCase();
 
-            const error =
-                document.getElementById("registerError");
+        const error =
+            document.getElementById("registerError");
 
-            if (password !== confirmPassword) {
-                error.textContent = "Passwords do not match!";
-                return;
-            }
+        // Check passwords
+        if (password !== confirmPassword) {
+            error.textContent = "Passwords do not match!";
+            return;
+        }
 
-           
+        // Get existing users
+        const users = JSON.parse(
+            localStorage.getItem("registeredUsers") || "[]"
+        );
 
-            
-
-            error.textContent = "";
-
-            alert("Registration successful! Please login.");
-
-            registerForm.reset();
-
-            showLoginForm();
-
-            document.getElementById("email").value = email;
-            document.getElementById("role").value = role;
-
+        // Check duplicate email
+        const existingUser = users.find(function (user) {
+            return user.email.toLowerCase() === email;
         });
-    }
+
+        if (existingUser) {
+            error.textContent = "Email already registered!";
+            return;
+        }
+
+        // Save new user
+        const newUser = {
+            name: name,
+            email: email,
+            password: password,
+            role: role
+        };
+
+        users.push(newUser);
+
+        localStorage.setItem(
+            "registeredUsers",
+            JSON.stringify(users)
+        );
+
+        error.textContent = "";
+
+        alert("Registration successful! Please login.");
+
+        registerForm.reset();
+
+        showLoginForm();
+
+        document.getElementById("email").value = email;
+        document.getElementById("role").value = role;
+
+    });
+} 
 
     // LOGIN
-    if (loginForm) {
+    // LOGIN
+if (loginForm) {
 
-        loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener("submit", function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            const email =
-                document.getElementById("email").value.trim().toLowerCase();
+        const email =
+            document.getElementById("email").value.trim().toLowerCase();
 
-            const password =
-                document.getElementById("password").value;
+        const role =
+            document.getElementById("role").value.trim().toLowerCase();
 
-            const role =
-                document.getElementById("role").value;
+        const error =
+            document.getElementById("loginError");
 
-            const error =
-                document.getElementById("loginError");
+        if (!email) {
+            error.textContent = "Please enter your email!";
+            return;
+        }
 
-            // Existing demo administrator account
-            if (
-                email === "admin@edulearn.com" &&
-                password === "Admin@123" &&
-                role === "admin"
-            ) {
-                error.textContent = "";
-                loginAsAdmin("Administrator", email);
-                return;
-            }
+        error.textContent = "";
+
+        // STUDENT LOGIN
+        if (role === "student") {
 
             const users = JSON.parse(
                 localStorage.getItem("registeredUsers") || "[]"
             );
 
             const user = users.find(function (item) {
-                return item.email === email &&
-                       item.password === password &&
-                       item.role === role;
+                return item.email.trim().toLowerCase() === email &&
+                       item.role.trim().toLowerCase() === "student";
             });
 
-            if (!user) {
-                error.textContent =
-                    "Invalid email, password or role!";
-                return;
-            }
+            const studentName = user
+                ? user.name
+                : email.split("@")[0].replace(/[._-]/g, " ");
 
-            error.textContent = "";
+            loginAsStudent(studentName, email);
 
-            if (user.role === "admin") {
-                loginAsAdmin(user.name, user.email);
-            } else {
-                loginAsStudent(user.name, user.email);
-            }
+            return;
+        }
 
-        });
-    }
+        // ADMIN LOGIN
+        if (role === "admin") {
 
+            loginAsAdmin("Administrator", email);
+
+            return;
+        }
+
+        error.textContent = "Please select a valid role!";
+
+    });
+}
     loadSavedUser();
 
 });
@@ -213,8 +241,8 @@ function loginAsAdmin(name, email) {
 /* =====================================================
    3. STUDENT LOGIN
 ===================================================== */
-
 function loginAsStudent(name, email) {
+
     localStorage.setItem("currentRole", "student");
     localStorage.setItem("studentName", name);
     localStorage.setItem("studentEmail", email);
@@ -241,6 +269,7 @@ function loginAsStudent(name, email) {
     showElement("app");
 
     showSectionById("dashboard");
+
 }
 
 

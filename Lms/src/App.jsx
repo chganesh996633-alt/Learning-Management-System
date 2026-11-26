@@ -15,7 +15,7 @@ function App() {
     window.__EDULEARN_LEGACY_SCRIPT_LOADING__ = true;
 
     const script = document.createElement('script');
-    script.src = '/legacy.js';
+    script.src = `${import.meta.env.BASE_URL}legacy.js`;
     script.async = false;
     script.onerror = () => {
       console.error('Could not load the EduLearn legacy JavaScript.');
